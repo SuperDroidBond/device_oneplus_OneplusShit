@@ -57,7 +57,7 @@ public class HBMModeTileService extends TileService {
         super.onClick();
 	SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         final boolean enabled = HBMModeSwitch.isCurrentlyEnabled(this);
-        FileUtils.writeValue(HBMModeSwitch.getFile(), enabled ? "0" : "1");
+        FileUtils.writeValue(HBMModeSwitch.getFile(), enabled ? "0" : "2");
         sharedPrefs.edit().putBoolean(ShitPanelSettings.KEY_HBM_SWITCH, enabled ? false : true).commit();
     }
 }
