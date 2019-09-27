@@ -399,3 +399,4 @@ public class DisplayCalibration extends PreferenceActivity implements
         return false;
     }
 }
+

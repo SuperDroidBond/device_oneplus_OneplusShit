@@ -14,13 +14,13 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<android.support.v7.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.preference.PreferenceCategory
+    <androidx.preference.PreferenceCategory
         android:key="notification_slider"
         android:title="@string/notification_slider_category_title">
 
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:key="slider_usage"
             android:dialogTitle="@string/notification_slider_usage_title"
             android:title="@string/notification_slider_usage_title"
@@ -28,24 +28,24 @@
             android:entries="@array/notification_slider_usage_entries"
             android:entryValues="@array/notification_slider_usage_entry_values" />
 
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:key="action_top_position"
             android:dialogTitle="@string/notification_slider_selection_dialog_title"
             android:title="@string/notification_slider_top_position"
             android:summary="%s" />
 
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
             android:key="action_middle_position"
             android:dialogTitle="@string/notification_slider_selection_dialog_title"
             android:title="@string/notification_slider_middle_position"
             android:summary="%s" />
 
-        <android.support.v7.preference.ListPreference
+        <androidx.preference.ListPreference
           android:key="action_bottom_position"
           android:dialogTitle="@string/notification_slider_selection_dialog_title"
           android:title="@string/notification_slider_bottom_position"
           android:summary="%s" />
 
-    </android.support.v7.preference.PreferenceCategory>
+    </androidx.preference.PreferenceCategory>
 
-</android.support.v7.preference.PreferenceScreen>
+</androidx.preference.PreferenceScreen>

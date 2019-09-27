@@ -16,11 +16,11 @@
 
 package com.oneplus.shit.settings;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.preference.PreferenceActivity;
 
-public class ScreenOffGestureSettings extends Activity {
+public class ScreenOffGestureSettings extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

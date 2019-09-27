@@ -137,3 +137,4 @@ public class VibratorStrengthPreference extends SeekBarDialogPreference implemen
     }
 }
 
+

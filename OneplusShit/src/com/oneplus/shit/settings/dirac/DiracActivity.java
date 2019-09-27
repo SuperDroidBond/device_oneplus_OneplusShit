@@ -17,9 +17,9 @@
 package com.oneplus.shit.settings.dirac;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
+import android.app.Activity;
 
-public class DiracActivity extends PreferenceActivity {
+public class DiracActivity extends Activity {
 
     private static final String TAG_DIRAC = "dirac";
 

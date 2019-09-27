@@ -31,12 +31,10 @@ LOCAL_USE_AAPT2 := true
 LOCAL_PRIVATE_PLATFORM_APIS := true
 
 LOCAL_STATIC_ANDROID_LIBRARIES := \
-    android-support-v4 \
-    android-support-v7-appcompat \
-    android-support-v7-preference \
-    android-support-v7-recyclerview \
-    android-support-v13 \
-    android-support-v14-preference
+        androidx.appcompat_appcompat \
+        androidx.core_core \
+	androidx.preference_preference \
+	androidx.viewpager_viewpager
 
 include frameworks/base/packages/SettingsLib/common.mk
 

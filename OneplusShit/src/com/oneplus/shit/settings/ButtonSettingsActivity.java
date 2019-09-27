@@ -16,11 +16,12 @@
 
 package com.oneplus.shit.settings;
 
+import android.app.Activity;
 import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import com.oneplus.shit.settings.Utils;
+import android.preference.PreferenceActivity;
 
 public class ButtonSettingsActivity extends PreferenceActivity {
 
