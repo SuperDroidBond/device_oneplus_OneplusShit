@@ -33,6 +33,7 @@
 	android:theme="@style/Theme.Settings"
         android:supportsRtl="true"
         android:defaultToDeviceProtectedStorage="true"
+        android:excludeFromRecents="true"
         android:directBootAware="true">
         <activity
             android:name="com.oneplus.shit.settings.ShitPanelSettings"
@@ -47,6 +48,7 @@
         <activity
             android:name="com.oneplus.shit.settings.ButtonSettingsActivity"
 	    android:label="@string/slider_op_title"
+            android:excludeFromRecents="true"
 	    android:theme="@style/Theme.Settings">
 	    <intent-filter>
 		<action android:name="android.intent.action.MAIN" />
@@ -59,7 +61,9 @@
         <!-- Gestures Settings -->
 	<activity
             android:name="com.oneplus.shit.settings.ScreenOffGestureSettings"
-            android:label="@string/screen_off_gesture_title">
+            android:excludeFromRecents="true"
+            android:label="@string/screen_off_gesture_title"
+            android:theme="@style/Theme.Settings">
           <intent-filter>
 	        <action android:name="android.intent.action.MAIN" />
     	        <category android:name="android.intent.category.DEFAULT" />
@@ -68,7 +72,9 @@
         <!-- Display Calibration -->
         <activity
             android:name="com.oneplus.shit.settings.DisplayCalibration"
-            android:label="@string/kcal_title">
+            android:excludeFromRecents="true"
+            android:label="@string/kcal_title"
+            android:theme="@style/Theme.Settings">
             <intent-filter>
 		 <action android:name="android.intent.action.MAIN" />
   	         <category android:name="android.intent.category.DEFAULT" />
@@ -77,7 +83,9 @@
         <!-- Dirac Sounds -->
         <activity
             android:name="com.oneplus.shit.settings.dirac.DiracActivity"
-            android:label="@string/dirac_title">
+            android:excludeFromRecents="true"
+            android:label="@string/dirac_title"
+            android:theme="@style/Theme.Settings">
             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.DEFAULT" />
@@ -87,7 +95,8 @@
         <activity
             android:name="com.oneplus.shit.settings.PanelSettingsActivity"
 	    android:label="@string/panel_category_title"
-	    android:launchMode="singleTask" >
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Settings">
             <intent-filter>
 		 <action android:name="android.intent.action.MAIN" />
   	         <category android:name="android.intent.category.DEFAULT" />
