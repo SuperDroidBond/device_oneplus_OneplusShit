@@ -17,9 +17,10 @@
 package com.oneplus.shit.settings.dirac;
 
 import android.os.Bundle;
-import android.app.Activity;
+import android.view.MenuItem;
+import android.preference.PreferenceActivity;
 
-public class DiracActivity extends Activity {
+public class DiracActivity extends PreferenceActivity {
 
     private static final String TAG_DIRAC = "dirac";
 
@@ -29,6 +30,18 @@ public class DiracActivity extends Activity {
 
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new DiracSettingsFragment(), TAG_DIRAC).commit();
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
 
