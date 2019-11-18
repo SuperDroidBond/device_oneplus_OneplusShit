@@ -104,6 +104,8 @@
     <string name="hbm_mode_title">High Brightness Mode</string>
     <string name="dci_mode_summary"></string>
     <string name="dci_mode_title">Wide Color Gamut Mode</string>
+    <string name="dcdim_mode_summary"></string>
+    <string name="dcdim_mode_title">DC Dimmer</string>
     <string name="oneplus_mode_summary"></string>
     <string name="oneplus_mode_title">OnePlus mode</string>
     <string name="display_category">Display</string>

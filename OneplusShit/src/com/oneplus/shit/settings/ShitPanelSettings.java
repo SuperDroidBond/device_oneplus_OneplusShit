@@ -54,6 +54,7 @@ public class ShitPanelSettings extends PreferenceActivity implements
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_DCI_SWITCH = "dci";
+    public static final String KEY_DCDIM_SWITCH = "dcdim";
     public static final String KEY_NIGHT_SWITCH = "night";
     public static final String KEY_ONEPLUS_SWITCH = "oneplus";
     private static final String SPECTRUM_KEY = "spectrum";
@@ -63,6 +64,7 @@ public class ShitPanelSettings extends PreferenceActivity implements
     private VibratorCallStrengthPreference mVibratorCallStrength;
     private VibratorNotifStrengthPreference mVibratorNotifStrength;
     private TwoStatePreference mHBMModeSwitch;
+    private TwoStatePreference mDCDimSwitch;
     private ListPreference mSpectrum;
 
     @Override
@@ -90,6 +92,9 @@ public class ShitPanelSettings extends PreferenceActivity implements
 
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
+
+        mDCDimSwitch = (TwoStatePreference) findPreference(KEY_DCDIM_SWITCH);
+        mDCDimSwitch.setOnPreferenceChangeListener(new DCDimSwitch());
 
         mSpectrum = (ListPreference) findPreference(SPECTRUM_KEY);
         if( mSpectrum != null ) {

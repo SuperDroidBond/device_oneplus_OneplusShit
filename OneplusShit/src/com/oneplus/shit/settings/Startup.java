@@ -30,6 +30,7 @@ import androidx.preference.PreferenceManager;
 
 import com.oneplus.shit.settings.KernelControl;
 import com.oneplus.shit.settings.ScreenOffGesture;
+import com.oneplus.shit.settings.DCDimSwitch;
 import com.oneplus.shit.settings.DCIModeSwitch;
 import com.oneplus.shit.settings.DisplayCalibration;
 import com.oneplus.shit.settings.HBMModeSwitch;
@@ -85,6 +86,8 @@ public class Startup extends BroadcastReceiver {
         restore(DCIModeSwitch.getFile(), enabled);
         enabled = sharedPrefs.getBoolean(ShitPanelSettings.KEY_ONEPLUS_SWITCH, false);
         restore(OnePlusModeSwitch.getFile(), enabled);
+        enabled = sharedPrefs.getBoolean(ShitPanelSettings.KEY_DCDIM_SWITCH, false);
+        restore(DCDimSwitch.getFile(), enabled);
         VibratorStrengthPreference.restore(context);
         VibratorCallStrengthPreference.restore(context);
         VibratorNotifStrengthPreference.restore(context);
