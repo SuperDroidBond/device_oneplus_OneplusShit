@@ -42,6 +42,9 @@ import android.util.Log;
 
 import com.oneplus.shit.settings.R;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+
 public class ShitPanelSettings extends PreferenceActivity implements
                             Preference.OnPreferenceChangeListener {
 
@@ -71,6 +74,10 @@ public class ShitPanelSettings extends PreferenceActivity implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.shit_panel);
+
+        ListView lv = getListView();
+        lv.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        lv.setDividerHeight(0);
 
         mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         if (mVibratorStrength != null) {

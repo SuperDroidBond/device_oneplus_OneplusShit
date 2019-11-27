@@ -15,12 +15,15 @@
      limitations under the License.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    android:sharedUserId="android.uid.system"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:sharedUserId="android.uid.system"
           package="com.oneplus.shit.settings"
           android:versionCode="2"
           android:versionName="2.0" >
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.PRE_BOOT_COMPLETED" />    
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.INJECT_EVENTS"/>
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -30,7 +33,7 @@
     <application
         android:icon="@mipmap/ic_launcher_settings"
         android:label="@string/device_extras"
-	android:theme="@style/Theme.Settings"
+        android:theme="@style/AppTheme"
         android:supportsRtl="true"
         android:defaultToDeviceProtectedStorage="true"
         android:excludeFromRecents="true"
@@ -48,8 +51,7 @@
         <activity
             android:name="com.oneplus.shit.settings.ButtonSettingsActivity"
 	    android:label="@string/slider_op_title"
-            android:excludeFromRecents="true"
-	    android:theme="@style/Theme.Settings">
+            android:excludeFromRecents="true">
 	    <intent-filter>
 		<action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -62,8 +64,7 @@
 	<activity
             android:name="com.oneplus.shit.settings.ScreenOffGestureSettings"
             android:excludeFromRecents="true"
-            android:label="@string/screen_off_gesture_title"
-            android:theme="@style/Theme.Settings">
+            android:label="@string/screen_off_gesture_title">
           <intent-filter>
 	        <action android:name="android.intent.action.MAIN" />
     	        <category android:name="android.intent.category.DEFAULT" />
@@ -73,8 +74,7 @@
         <activity
             android:name="com.oneplus.shit.settings.DisplayCalibration"
             android:excludeFromRecents="true"
-            android:label="@string/kcal_title"
-            android:theme="@style/Theme.Settings">
+            android:label="@string/kcal_title">
             <intent-filter>
 		 <action android:name="android.intent.action.MAIN" />
   	         <category android:name="android.intent.category.DEFAULT" />
@@ -84,8 +84,7 @@
         <activity
             android:name="com.oneplus.shit.settings.dirac.DiracActivity"
             android:excludeFromRecents="true"
-            android:label="@string/dirac_title"
-            android:theme="@style/Theme.Settings">
+            android:label="@string/dirac_title">
             <intent-filter>
                  <action android:name="android.intent.action.MAIN" />
                  <category android:name="android.intent.category.DEFAULT" />
@@ -95,8 +94,7 @@
         <activity
             android:name="com.oneplus.shit.settings.PanelSettingsActivity"
 	    android:label="@string/panel_category_title"
-            android:excludeFromRecents="true"
-            android:theme="@style/Theme.Settings">
+            android:excludeFromRecents="true">
             <intent-filter>
 		 <action android:name="android.intent.action.MAIN" />
   	         <category android:name="android.intent.category.DEFAULT" />
@@ -123,8 +121,9 @@
             </intent-filter>
         </service>
         <receiver android:name="com.oneplus.shit.settings.Startup" >
-            <intent-filter android:priority="1000" >
+            <intent-filter android:priority="999" >
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.PRE_BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
     </application>

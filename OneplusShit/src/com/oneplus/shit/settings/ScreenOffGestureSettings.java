@@ -20,6 +20,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.preference.PreferenceActivity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.widget.ListView;
+
 public class ScreenOffGestureSettings extends PreferenceActivity {
 
     @Override
@@ -29,6 +33,10 @@ public class ScreenOffGestureSettings extends PreferenceActivity {
         getFragmentManager().beginTransaction().replace(android.R.id.content,
                 new ScreenOffGesture()).commit();
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ListView lv = getListView();
+        lv.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        lv.setDividerHeight(0);
     }
 
     @Override

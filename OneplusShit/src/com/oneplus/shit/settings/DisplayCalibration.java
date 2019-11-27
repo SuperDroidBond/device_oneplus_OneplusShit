@@ -40,6 +40,10 @@ import android.app.ActionBar;
 import com.oneplus.shit.settings.utils.SeekBarPreference;
 import com.oneplus.shit.settings.R;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.widget.ListView;
+
 public class DisplayCalibration extends PreferenceActivity implements
         OnPreferenceChangeListener {
 
@@ -95,6 +99,10 @@ public class DisplayCalibration extends PreferenceActivity implements
         imageView.setImageResource(R.drawable.calibration_png);
 
         addPreferencesFromResource(R.xml.display_calibration);
+
+        ListView lv = getListView();
+        lv.setDivider(new ColorDrawable(Color.TRANSPARENT));
+        lv.setDividerHeight(0);
 
         mKcalEnabled = (SwitchPreference) findPreference(KEY_KCAL_ENABLED);
         mKcalEnabled.setChecked(mPrefs.getBoolean(DisplayCalibration.KEY_KCAL_ENABLED, false));
