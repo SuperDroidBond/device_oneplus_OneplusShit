@@ -16,6 +16,7 @@
 
 package com.oneplus.shit.settings.utils;
 
+import android.os.SystemProperties;
 import android.util.Log;
 
 import java.io.File;
@@ -28,7 +29,7 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public final class FileUtils {
-    private static final String TAG = "FileUtils";
+    public static final String TAG = "FileUtils";
 
     private FileUtils() {
         // this class is not supposed to be instantiated
@@ -207,5 +208,13 @@ public final class FileUtils {
             }
         }
         return line;
+    }
+
+    public static void setintProp(String prop, int value) {
+        SystemProperties.set(prop, String.valueOf(value));
+    }
+
+    public static int getintProp(String prop, int defaultValue) {
+        return SystemProperties.getInt(prop, defaultValue);
     }
 }

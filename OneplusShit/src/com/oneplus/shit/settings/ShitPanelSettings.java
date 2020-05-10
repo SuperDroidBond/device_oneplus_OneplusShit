@@ -62,8 +62,8 @@ public class ShitPanelSettings extends PreferenceActivity implements
     public static final String KEY_DCDIM_SWITCH = "dcdim";
     public static final String KEY_NIGHT_SWITCH = "night";
     public static final String KEY_ONEPLUS_SWITCH = "oneplus";
-    private static final String SPECTRUM_KEY = "spectrum";
-    private static final String SPECTRUM_SYSTEM_PROPERTY = "persist.spectrum.profile";
+    public static final String SPECTRUM_KEY = "spectrum";
+    public static final String SPECTRUM_SYSTEM_PROPERTY = "persist.spectrum.profile";
 
     private SharedPreferences mPrefs;
     private VibratorStrengthPreference mVibratorStrength;
