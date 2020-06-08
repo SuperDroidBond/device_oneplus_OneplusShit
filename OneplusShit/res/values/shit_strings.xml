@@ -285,4 +285,7 @@
     <string name="hbm_cat">High Brightness</string>
     <string name="hbm_autobrightness_summary"></string>
     <string name="hbm_autobrightness_title">Automatic High brightness mode</string>
+    <string name="hbm_autobrightness_threshold_summary"></string>
+    <string name="hbm_autobrightness_threshold_title">Automatic High brightness mode threshold (lux)</string>
+
 </resources>
