@@ -79,9 +79,13 @@ public class ShitPanelSettings extends PreferenceActivity implements
     private TwoStatePreference mDCDimSwitch;
     private ListPreference mSpectrum;
 
+    private static Context context;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -114,7 +118,7 @@ public class ShitPanelSettings extends PreferenceActivity implements
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
 
         mHBMAutobrightnessSwitch = (TwoStatePreference) findPreference(KEY_HBM_AUTOBRIGHTNESS_SWITCH);
-        mHBMAutobrightnessSwitch.setChecked(PreferenceManager.getDefaultSharedPreferences(getContext()).getBoolean(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_SWITCH, false));
+        mHBMAutobrightnessSwitch.setChecked(mPrefs.getBoolean(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_SWITCH, false));
         mHBMAutobrightnessSwitch.setOnPreferenceChangeListener(this);
 
         mDCDimSwitch = (TwoStatePreference) findPreference(KEY_DCDIM_SWITCH);
@@ -138,9 +142,9 @@ public class ShitPanelSettings extends PreferenceActivity implements
             return true;
         } else if (preference == mHBMAutobrightnessSwitch) {
             Boolean enabled = (Boolean) newValue;
-            SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
+            SharedPreferences.Editor prefChange = mPrefs.edit();
             prefChange.putBoolean(KEY_HBM_AUTOBRIGHTNESS_SWITCH, enabled).commit();
-            FileUtils.enableService(getContext());
+            FileUtils.enableService(this);
             return true;
          }
         return true;

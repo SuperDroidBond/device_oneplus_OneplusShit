@@ -33,6 +33,8 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.oneplus.shit.settings.ShitPanelSettings;
+
 import com.oneplus.shit.settings.AutoHighBrightnessModeService;
 
 public final class FileUtils {
@@ -240,9 +242,9 @@ public final class FileUtils {
     }
 
     public static void enableService(Context context) {
-        if (DeviceSettings.isHBMAutobrightnessEnabled(context) && !mServiceEnabled) {
+        if (ShitPanelSettings.isHBMAutobrightnessEnabled(context) && !mServiceEnabled) {
             startService(context);
-        } else if (!DeviceSettings.isHBMAutobrightnessEnabled(context) && mServiceEnabled) {
+        } else if (!ShitPanelSettings.isHBMAutobrightnessEnabled(context) && mServiceEnabled) {
             stopService(context);
         }
     }

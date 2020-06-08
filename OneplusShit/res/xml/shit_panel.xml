@@ -116,7 +116,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/hbm_cat">
+        android:title="@string/hbm_cat" />
 
         <SwitchPreference
             android:key="hbm"
@@ -129,7 +129,7 @@
             android:summary="@string/hbm_autobrightness_summary"
             android:title="@string/hbm_autobrightness_title" />
 
-        <com.oneplus.shit.settings.ShitPanel.HBMAutobrightnessThresholdPreference
+        <com.oneplus.shit.settings.HBMAutobrightnessThresholdPreference
             android:key="hbm_autobrightness_threshould"
             android:title="@string/hbm_autobrightness_threshold_title"
             android:summary="@string/hbm_autobrightness_threshold_summary" />

@@ -22,9 +22,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceManager;
-import androidx.preference.PreferenceViewHolder;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
+import android.preference.PreferenceViewHolder;
+
+import com.oneplus.shit.settings.R;
+import com.oneplus.shit.settings.ShitPanelSettings;
 
 public class HBMAutobrightnessThresholdPreference extends ProperSeekBarPreference {
 
@@ -44,7 +47,7 @@ public class HBMAutobrightnessThresholdPreference extends ProperSeekBarPreferenc
         mDefaultValueExists = true;
         mDefaultValue = mDefVal;
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        mValue = Integer.parseInt(sharedPrefs.getString(DeviceSettings.KEY_HBM_AUTOBRIGHTNESS_THRESHOLD, "30000"));
+        mValue = Integer.parseInt(sharedPrefs.getString(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_THRESHOLD, "30000"));
 
         setPersistent(false);
     }
@@ -52,7 +55,7 @@ public class HBMAutobrightnessThresholdPreference extends ProperSeekBarPreferenc
     @Override
     protected void changeValue(int newValue) {
         SharedPreferences.Editor prefChange = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-        prefChange.putString(DeviceSettings.KEY_HBM_AUTOBRIGHTNESS_THRESHOLD, String.valueOf(newValue)).commit();
+        prefChange.putString(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_THRESHOLD, String.valueOf(newValue)).commit();
     }
 }
 

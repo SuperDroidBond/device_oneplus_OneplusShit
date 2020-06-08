@@ -7,7 +7,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import androidx.core.content.res.TypedArrayUtils;
-import androidx.preference.*;
+import android.preference.*;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -79,7 +79,7 @@ public class ProperSeekBarPreference extends Preference implements SeekBar.OnSee
 
     public ProperSeekBarPreference(Context context, AttributeSet attrs) {
         this(context, attrs, TypedArrayUtils.getAttr(context,
-                androidx.preference.R.attr.preferenceStyle,
+                android.preference.R.attr.preferenceStyle,
                 android.R.attr.preferenceStyle));
     }
 
