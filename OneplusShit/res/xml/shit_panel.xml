@@ -134,4 +134,10 @@
             android:title="@string/hbm_autobrightness_title"
             app:iconSpaceReserved="false"/>
 
+        <com.oneplus.shit.settings.HBMAutobrightnessThresholdPreference
+            android:key="hbm_autobrightness_threshould"
+            android:title="@string/hbm_autobrightness_threshold_title"
+            android:summary="@string/hbm_autobrightness_threshold_summary"
+            app:iconSpaceReserved="false"/>
+
 </PreferenceScreen>
