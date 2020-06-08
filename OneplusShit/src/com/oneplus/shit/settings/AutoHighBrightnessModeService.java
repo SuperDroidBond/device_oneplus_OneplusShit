@@ -1,5 +1,6 @@
 package com.oneplus.shit.settings;
 
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +14,7 @@ import android.os.IBinder;
 import android.os.PowerManager;
 
 import com.oneplus.shit.settings.R;
+import com.oneplus.shit.settings.utils.FileUtils;
 
 public class AutoHighBrightnessModeService extends Service {
     private static final String HBM_FILE = "/sys/class/graphics/fb0/hbm";
@@ -30,22 +32,39 @@ public class AutoHighBrightnessModeService extends Service {
 
     public void deactivateLightSensorRead() {
         mSensorManager.unregisterListener(mSensorEventListener);
+        mAutoHBMActive = false;
+        enableHBM(false);
+    }
+
+    private void enableHBM(boolean enable) {
+        if (enable) {
+            FileUtils.writeValue(HBM_FILE, "1");
+        } else {
+            FileUtils.writeValue(HBM_FILE, "0");
+        }
+    }
+
+    private boolean isCurrentlyEnabled() {
+        return FileUtils.getFileValueAsBoolean(HBM_FILE, false);
     }
 
     SensorEventListener mSensorEventListener = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
             float lux = event.values[0];
+            KeyguardManager km =
+                    (KeyguardManager) getSystemService(getApplicationContext().KEYGUARD_SERVICE);
+            boolean keyguardShowing = km.inKeyguardRestrictedInputMode();
             if (lux > 6500.0f) {
-                if (!mAutoHBMActive) {
+                if ((!mAutoHBMActive | !isCurrentlyEnabled()) && !keyguardShowing) {
                     mAutoHBMActive = true;
-                    Utils.writeValue(HBM_FILE, "5");
+                    enableHBM(true);
                 }
             }
             if (lux < 6500.0f) {
                 if (mAutoHBMActive) {
                     mAutoHBMActive = false;
-                    Utils.writeValue(HBM_FILE, "0");
+                    enableHBM(false);
                 }
             }
         }
