@@ -19,6 +19,7 @@ package com.oneplus.shit.settings;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +34,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.TwoStatePreference;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +45,7 @@ import android.widget.ListView;
 import android.util.Log;
 
 import com.oneplus.shit.settings.R;
+import com.oneplus.shit.settings.utils.FileUtils;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -58,6 +61,7 @@ public class ShitPanelSettings extends PreferenceActivity implements
 
     public static final String KEY_SRGB_SWITCH = "srgb";
     public static final String KEY_HBM_SWITCH = "hbm";
+    public static final String KEY_HBM_AUTOBRIGHTNESS_SWITCH = "hbm_autobrightness";
     public static final String KEY_DCI_SWITCH = "dci";
     public static final String KEY_DCDIM_SWITCH = "dcdim";
     public static final String KEY_NIGHT_SWITCH = "night";
@@ -70,12 +74,17 @@ public class ShitPanelSettings extends PreferenceActivity implements
     private VibratorCallStrengthPreference mVibratorCallStrength;
     private VibratorNotifStrengthPreference mVibratorNotifStrength;
     private TwoStatePreference mHBMModeSwitch;
+    private static TwoStatePreference mHBMAutobrightnessSwitch;
     private TwoStatePreference mDCDimSwitch;
     private ListPreference mSpectrum;
+
+    private static Context context;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
@@ -107,6 +116,10 @@ public class ShitPanelSettings extends PreferenceActivity implements
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
 
+        mHBMAutobrightnessSwitch = (TwoStatePreference) findPreference(KEY_HBM_AUTOBRIGHTNESS_SWITCH);
+        mHBMAutobrightnessSwitch.setChecked(mPrefs.getBoolean(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_SWITCH, false));
+        mHBMAutobrightnessSwitch.setOnPreferenceChangeListener(this);
+
         mDCDimSwitch = (TwoStatePreference) findPreference(KEY_DCDIM_SWITCH);
         mDCDimSwitch.setOnPreferenceChangeListener(new DCDimSwitch());
 
@@ -119,6 +132,8 @@ public class ShitPanelSettings extends PreferenceActivity implements
 
      @Override
      public boolean onPreferenceChange(Preference preference, Object newValue) {
+         context = this;
+         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
          final String key = preference.getKey();
          boolean value;
          String strvalue;
@@ -126,9 +141,19 @@ public class ShitPanelSettings extends PreferenceActivity implements
             strvalue = (String) newValue;
             SystemProperties.set(SPECTRUM_SYSTEM_PROPERTY, strvalue);
             return true;
+        } else if (preference == mHBMAutobrightnessSwitch) {
+            Boolean enabled = (Boolean) newValue;
+            SharedPreferences.Editor prefChange = mPrefs.edit();
+            prefChange.putBoolean(KEY_HBM_AUTOBRIGHTNESS_SWITCH, enabled).commit();
+            FileUtils.enableService(this);
+            return true;
          }
         return true;
      }
+
+    public static boolean isHBMAutobrightnessEnabled(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(ShitPanelSettings.KEY_HBM_AUTOBRIGHTNESS_SWITCH, false);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

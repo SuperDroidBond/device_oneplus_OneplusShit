@@ -19,6 +19,11 @@ package com.oneplus.shit.settings.utils;
 import android.os.SystemProperties;
 import android.util.Log;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.RemoteException;
+import android.os.UserHandle;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,8 +33,13 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.oneplus.shit.settings.ShitPanelSettings;
+import com.oneplus.shit.settings.AutoHighBrightnessModeService;
+
 public final class FileUtils {
     public static final String TAG = "FileUtils";
+
+    private static boolean mServiceEnabled = false;
 
     private FileUtils() {
         // this class is not supposed to be instantiated
@@ -217,4 +227,25 @@ public final class FileUtils {
     public static int getintProp(String prop, int defaultValue) {
         return SystemProperties.getInt(prop, defaultValue);
     }
+
+    private static void startService(Context context) {
+        context.startServiceAsUser(new Intent(context, AutoHighBrightnessModeService.class),
+                UserHandle.CURRENT);
+        mServiceEnabled = true;
+    }
+
+    private static void stopService(Context context) {
+        mServiceEnabled = false;
+        context.stopServiceAsUser(new Intent(context, AutoHighBrightnessModeService.class),
+                UserHandle.CURRENT);
+    }
+
+    public static void enableService(Context context) {
+        if (ShitPanelSettings.isHBMAutobrightnessEnabled(context) && !mServiceEnabled) {
+            startService(context);
+        } else if (!ShitPanelSettings.isHBMAutobrightnessEnabled(context) && mServiceEnabled) {
+            stopService(context);
+        }
+    }
+
 }

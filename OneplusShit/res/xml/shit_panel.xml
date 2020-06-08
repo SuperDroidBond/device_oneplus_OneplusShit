@@ -103,15 +103,24 @@
         </Preference>
 
         <SwitchPreference
+            android:key="dcdim"
+            android:summary="@string/dcdim_mode_summary"
+            android:title="@string/dcdim_mode_title"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/hbm_cat"/>
+
+        <SwitchPreference
             android:key="hbm"
             android:summary="@string/hbm_mode_summary"
             android:title="@string/hbm_mode_title"
             android:defaultValue="false" />
 
         <SwitchPreference
-            android:key="dcdim"
-            android:summary="@string/dcdim_mode_summary"
-            android:title="@string/dcdim_mode_title"
-            android:defaultValue="false" />
-    </PreferenceCategory>
+            android:key="hbm_autobrightness"
+            android:summary="@string/hbm_autobrightness_summary"
+            android:title="@string/hbm_autobrightness_title" />
+
 </PreferenceScreen>
