@@ -280,4 +280,9 @@
     <string name="vib_call_strength_summary_head">Define the strength of the vibrator during an incoming call</string>
     <string name="vib_notif_strength_title_head">Notification Strength</string>
     <string name="vib_notif_strength_summary_head">Define the strength of the vibrator during an incoming notification</string>
+
+    <!-- Auto-HighBrightness Mode -->
+    <string name="hbm_cat">High Brightness</string>
+    <string name="hbm_autobrightness_summary"></string>
+    <string name="hbm_autobrightness_title">Automatic High brightness mode</string>
 </resources>

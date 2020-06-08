@@ -93,6 +93,7 @@ public class Startup extends BroadcastReceiver {
         VibratorNotifStrengthPreference.restore(context);
         DisplayCalibration.restore(context);
         new DiracUtils(context).onBootCompleted();
+        FileUtils.enableService(context);
     }
 
     private boolean getPreferenceBoolean(Context context, String key, boolean defaultValue) {
