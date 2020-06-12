@@ -126,18 +126,21 @@
             android:summary="@string/hbm_mode_summary"
             android:title="@string/hbm_mode_title"
             android:defaultValue="false"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false"
+            android:disableDependentsState="true" />
 
         <SwitchPreference
             android:key="hbm_autobrightness"
             android:summary="@string/hbm_autobrightness_summary"
             android:title="@string/hbm_autobrightness_title"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false"
+            android:dependency="hbm" />
 
         <com.oneplus.shit.settings.HBMAutobrightnessThresholdPreference
             android:key="hbm_autobrightness_threshould"
             android:title="@string/hbm_autobrightness_threshold_title"
             android:summary="@string/hbm_autobrightness_threshold_summary"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false"
+            android:dependency="hbm" />
 
 </PreferenceScreen>
