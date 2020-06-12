@@ -16,11 +16,11 @@
 
 package com.oneplus.shit.settings.dirac;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.preference.PreferenceActivity;
 
-public class DiracActivity extends PreferenceActivity {
+public class DiracActivity extends Activity {
 
     private static final String TAG_DIRAC = "dirac";
 

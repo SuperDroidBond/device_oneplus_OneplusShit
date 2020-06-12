@@ -14,7 +14,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ListPreference
         android:key="dirac_headset_pref"
@@ -22,7 +24,8 @@
         android:entryValues="@array/dirac_headset_pref_values"
         android:defaultValue="0"
         android:title="@string/dirac_headset_title"
-        android:summary="%s" />
+        android:summary="%s"
+        app:iconSpaceReserved="false"/>
 
     <ListPreference
         android:key="dirac_preset_pref"
@@ -30,7 +33,8 @@
         android:entryValues="@array/dirac_preset_pref_values"
         android:defaultValue="0,0,0,0,0,0,0"
         android:title="@string/dirac_preset_title"
-        android:summary="%s" />
+        android:summary="%s"
+        app:iconSpaceReserved="false"/>
 
 </PreferenceScreen>
 

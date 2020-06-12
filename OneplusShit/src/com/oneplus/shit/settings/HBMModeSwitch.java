@@ -19,9 +19,9 @@ package com.oneplus.shit.settings;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.PreferenceManager;
+import androidx.preference.Preference;
+import androidx.preference.Preference.OnPreferenceChangeListener;
+import androidx.preference.PreferenceManager;
 import com.oneplus.shit.settings.utils.FileUtils;
 
 public class HBMModeSwitch implements OnPreferenceChangeListener {

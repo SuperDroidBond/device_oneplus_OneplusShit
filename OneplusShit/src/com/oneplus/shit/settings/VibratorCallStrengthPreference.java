@@ -19,35 +19,34 @@ package com.oneplus.shit.settings;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceViewHolder;
 import android.database.ContentObserver;
-import android.preference.SeekBarDialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.SeekBar;
-import android.widget.TextView;
+import android.widget.Button;
 import android.os.Bundle;
-import android.util.Log;
 import android.os.Vibrator;
+import android.provider.Settings;
+import android.util.Log;
 import com.oneplus.shit.settings.utils.FileUtils;
+
 import com.oneplus.shit.settings.R;
 
-import java.util.List;
-
-public class VibratorCallStrengthPreference extends SeekBarDialogPreference implements
+public class VibratorCallStrengthPreference extends Preference implements
         SeekBar.OnSeekBarChangeListener {
 
     private SeekBar mSeekBar;
     private int mOldStrength;
     private int mMinValue;
     private int mMaxValue;
-    private float offset;
     private Vibrator mVibrator;
-    private TextView mValueText;
 
     private static final String FILE_LEVEL = "/sys/devices/virtual/timed_output/vibrator/vmax_mv_call";
     private static final long testVibrationPattern[] = {0,250};
+    public static final String SETTINGS_KEY = ShitPanelSettings.KEY_CALL_VIBSTRENGTH;
+    public static final String DEFAULT_VALUE = "2700";
 
     public VibratorCallStrengthPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -56,27 +55,19 @@ public class VibratorCallStrengthPreference extends SeekBarDialogPreference impl
         // #define QPNP_HAP_VMAX_MAX_MV		3596
         mMinValue = 116;
         mMaxValue = 3596;
-        offset = mMaxValue / 100f;
 
         mVibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        setDialogLayoutResource(R.layout.preference_dialog_vibrator_strength);
+        setLayoutResource(R.layout.preference_dialog_vibrator_strength);
     }
 
     @Override
-    protected void showDialog(Bundle state) {
-        super.showDialog(state);
-    }
-
-    @Override
-    protected void onBindDialogView(View view) {
-        super.onBindDialogView(view);
+    public void onBindViewHolder(PreferenceViewHolder holder) {
+        super.onBindViewHolder(holder);
 
         mOldStrength = Integer.parseInt(getValue(getContext()));
-        mSeekBar = getSeekBar(view);
+        mSeekBar = (SeekBar) holder.findViewById(R.id.seekbar);
         mSeekBar.setMax(mMaxValue - mMinValue);
         mSeekBar.setProgress(mOldStrength - mMinValue);
-        mValueText = (TextView) view.findViewById(R.id.current_value);
-        mValueText.setText(Integer.toString(Math.round(mOldStrength / offset)) + "%");
         mSeekBar.setOnSeekBarChangeListener(this);
     }
 
@@ -85,26 +76,32 @@ public class VibratorCallStrengthPreference extends SeekBarDialogPreference impl
     }
 
     public static String getValue(Context context) {
-        return FileUtils.getFileValue(FILE_LEVEL, "2700");
+        String val = FileUtils.getFileValue(FILE_LEVEL, DEFAULT_VALUE);
+        return val;
     }
 
-    private void setValue(String newValue) {
+    private void setValue(String newValue, boolean withFeedback) {
         FileUtils.writeValue(FILE_LEVEL, newValue);
+        Settings.System.putString(getContext().getContentResolver(), SETTINGS_KEY, newValue);
+        if (withFeedback) {
+            mVibrator.vibrate(testVibrationPattern, -1);
+        }
     }
 
     public static void restore(Context context) {
         if (!isSupported()) {
             return;
         }
-
-        String storedValue = PreferenceManager.getDefaultSharedPreferences(context).getString(ShitPanelSettings.KEY_CALL_VIBSTRENGTH, "2700"); 
+        String storedValue = Settings.System.getString(context.getContentResolver(), SETTINGS_KEY);
+        if (storedValue == null) {
+            storedValue = DEFAULT_VALUE;
+        }
         FileUtils.writeValue(FILE_LEVEL, storedValue);
     }
 
     public void onProgressChanged(SeekBar seekBar, int progress,
             boolean fromTouch) {
-        setValue(String.valueOf(progress + mMinValue));
-        mValueText.setText(Integer.toString(Math.round((progress + mMinValue) / offset)) + "%");
+        setValue(String.valueOf(progress + mMinValue), true);
     }
 
     public void onStartTrackingTouch(SeekBar seekBar) {
@@ -112,30 +109,8 @@ public class VibratorCallStrengthPreference extends SeekBarDialogPreference impl
     }
 
     public void onStopTrackingTouch(SeekBar seekBar) {
-        if (mVibrator.hasVibrator())
-            mVibrator.vibrate(testVibrationPattern, -1);
-    }
-
-    @Override
-    protected void onDialogClosed(boolean positiveResult) {
-        super.onDialogClosed(positiveResult);
-
-        if (positiveResult) {
-            final int value = mSeekBar.getProgress() + mMinValue;
-            setValue(String.valueOf(value));
-            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(getContext()).edit();
-            editor.putString(ShitPanelSettings.KEY_CALL_VIBSTRENGTH, String.valueOf(value));
-            editor.commit();
-        } else {
-            restoreOldState();
-        }
-        mVibrator.cancel();
-    }
-
-    private void restoreOldState() {
-        setValue(String.valueOf(mOldStrength));
+        // NA
     }
 }
-
 
 

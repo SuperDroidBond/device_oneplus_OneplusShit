@@ -39,8 +39,7 @@
         android:excludeFromRecents="true"
         android:directBootAware="true">
         <activity
-            android:name="com.oneplus.shit.settings.ShitPanelSettings"
-            android:exported="true"
+            android:name="com.oneplus.shit.settings.ShitPanelActivity"
             android:label="@string/device_extras" >
 	    <intent-filter>
 		<action android:name="android.intent.action.MAIN" />

@@ -16,7 +16,6 @@
 
 package com.oneplus.shit.settings;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -28,13 +27,13 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.SystemProperties;
 import android.provider.Settings;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
-import android.preference.TwoStatePreference;
-import android.preference.PreferenceManager;
+import androidx.preference.PreferenceFragment;
+import androidx.preference.ListPreference;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceCategory;
+import androidx.preference.PreferenceScreen;
+import androidx.preference.TwoStatePreference;
+import androidx.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,14 +43,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.util.Log;
 
-import com.oneplus.shit.settings.R;
 import com.oneplus.shit.settings.utils.FileUtils;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
-public class ShitPanelSettings extends PreferenceActivity implements
-                            Preference.OnPreferenceChangeListener {
+public class ShitPanelSettings extends PreferenceFragment
+             implements Preference.OnPreferenceChangeListener {
 
     public static final String KEY_VIBSTRENGTH = "vib_strength";
     public static final String KEY_CALL_VIBSTRENGTH = "vib_call_strength";
@@ -78,22 +76,12 @@ public class ShitPanelSettings extends PreferenceActivity implements
     private TwoStatePreference mDCDimSwitch;
     private ListPreference mSpectrum;
 
-    private static Context context;
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        context = this;
-        mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if (getActionBar() != null) {
-            getActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.shit_panel);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        ListView lv = getListView();
-        lv.setDivider(new ColorDrawable(Color.TRANSPARENT));
-        lv.setDividerHeight(0);
+        mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
         if (mVibratorStrength != null) {
@@ -132,8 +120,7 @@ public class ShitPanelSettings extends PreferenceActivity implements
 
      @Override
      public boolean onPreferenceChange(Preference preference, Object newValue) {
-         context = this;
-         mPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+         mPrefs = PreferenceManager.getDefaultSharedPreferences(getContext());
          final String key = preference.getKey();
          boolean value;
          String strvalue;
@@ -145,10 +132,10 @@ public class ShitPanelSettings extends PreferenceActivity implements
             Boolean enabled = (Boolean) newValue;
             SharedPreferences.Editor prefChange = mPrefs.edit();
             prefChange.putBoolean(KEY_HBM_AUTOBRIGHTNESS_SWITCH, enabled).commit();
-            FileUtils.enableService(this);
+            FileUtils.enableService(getContext());
             return true;
          }
-        return true;
+        return false;
      }
 
     public static boolean isHBMAutobrightnessEnabled(Context context) {
@@ -158,11 +145,11 @@ public class ShitPanelSettings extends PreferenceActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        // Respond to the action bar's Up/Home button
+        case android.R.id.home:
+            getActivity().finish();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }
